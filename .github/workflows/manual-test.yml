@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - 'releases/**'
+      - main
 name: Test Manually
 jobs:
   order:

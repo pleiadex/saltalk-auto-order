@@ -1,8 +1,11 @@
-on: push
-name: Place an order
+on:
+  push:
+    branches:
+      - 'releases/**'
+name: Test Manually
 jobs:
   order:
-    name: place-an-order
+    name: place-an-order-by-trigger
     runs-on: ubuntu-latest
     environment: SALTALK_AUTH
     steps:

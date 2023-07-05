@@ -1,7 +1,6 @@
+import time
 from datetime import datetime, timedelta
 from utils.load_config import load_config
-
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base import BasePage
@@ -28,13 +27,15 @@ class MenuPage(BasePage):
     self.driver.get(self.saltalk_url)
 
   def add_favorite_orders_to_cart(self):
-    product_items = self.wait.until(EC.presence_of_all_elements_located(*self.locator.PRODUCT_ITEMS))
     favorite_orders = self._get_favorite_orders()
+
+    self.driver.implicitly_wait(10) # seconds
+    self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete') # this doesn't wait for the page to be fully loaded
+    time.sleep(60) # have padding time for the page to be fully loaded
+    product_items = self.wait.until(EC.presence_of_all_elements_located(self.locator.PRODUCT_ITEMS))
     
     order_count = 0
     for product_item in product_items:
-
-      # FIXME: (Youn) StaleElementReferenceException - wait for element to be ready
       product_title = product_item.find_element(*self.locator.PRODUCT_TITLE).text
                                                                                             
       for favorite_order in favorite_orders[order_count:]:
@@ -46,6 +47,8 @@ class MenuPage(BasePage):
 
 
           order_count += 1
-        
+
       if order_count == len(favorite_orders):
         return
+    
+    print('The menu are not found in the menu page.')

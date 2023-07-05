@@ -33,7 +33,9 @@ jobs:
           pip install -r requirements.txt   
 
       - name: Run the selenium script
-        run: python main.py
+        run: |
+              cd src
+              python main.py
         env:
           SALTALK_ID: ${{ secrets.SALTALK_ID }}
           SALTALK_PASSWORD: ${{ secrets.SALTALK_PASSWORD }}

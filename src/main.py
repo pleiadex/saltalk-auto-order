@@ -11,7 +11,6 @@ from pages.menu import MenuPage
 from pages.checkout import CheckoutPage
 
 N_DAYS_LATER = 1
-# TODO: (Sisi) 옵션 메뉴 선택 가능하게 하기
 
 def main():
   display = Display(visible=0, size=(800, 800))  

@@ -15,7 +15,10 @@ class OrderPageLocators:
 class MenuPageLocators:
   PRODUCT_ITEMS = (By.CLASS_NAME, "product-item")
   PRODUCT_TITLE = (By.CLASS_NAME, "product-title")
-  ADD_BUTTON    = (By.CLASS_NAME, "svg-icon")
+  PRODUCT_IMAGE = (By.CLASS_NAME, "menu-dish-photo")
+  PRODUCT_DETAIL_MODAL = (By.CLASS_NAME, "product-detail-add-btn")
+  ADD_BUTTON    = (By.CLASS_NAME, "ant-btn")
+  IFRAME        = (By.CSS_SELECTOR, "iframe[data-test-id='interactive-frame']")
 
 class CheckoutPageLocators:
   PLACE_ORDER_BUTTON = (By.XPATH, '//*[@id="app"]/app-checkout/div/div/div[2]/nz-spin/div/app-checkout-fee/div/div/button')

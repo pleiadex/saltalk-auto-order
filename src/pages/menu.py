@@ -22,6 +22,13 @@ class MenuPage(BasePage):
   def _get_favorite_orders(self):
     return load_config()["orders"]
 
+  def _scroll_down_page(self, speed=1):
+    current_scroll_position, new_height= 0, 1
+    while current_scroll_position <= new_height:
+        current_scroll_position += speed
+        self.driver.execute_script("window.scrollTo(0, {});".format(current_scroll_position))
+        new_height = self.driver.execute_script("return document.body.scrollHeight")
+
   def open_menu_page(self):
     self.saltalk_url = self._get_saltalk_url()
     self.driver.get(self.saltalk_url)
@@ -32,6 +39,7 @@ class MenuPage(BasePage):
     self.driver.implicitly_wait(10) # seconds
     self.wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete') # this doesn't wait for the page to be fully loaded
     time.sleep(60) # have padding time for the page to be fully loaded
+    # self._scroll_down_page(10)
     product_items = self.wait.until(EC.presence_of_all_elements_located(self.locator.PRODUCT_ITEMS))
     
     order_count = 0
@@ -40,11 +48,16 @@ class MenuPage(BasePage):
                                                                                             
       for favorite_order in favorite_orders[order_count:]:
         if favorite_order["title"] == product_title:
-          add_button = product_item.find_element(*self.locator.ADD_BUTTON)    
+          product_item.find_element(*self.locator.PRODUCT_IMAGE).click()
+
+          modal = self.wait.until(EC.element_to_be_clickable(self.locator.PRODUCT_DETAIL_MODAL))
+
+          # TODO: (Youn) iframe is blocking the click event, need to switch to iframe
+
+          add_button = modal.find_element(*self.locator.ADD_BUTTON)
           add_button.click()
 
           # TODO: (Sisi) select options
-
 
           order_count += 1
 

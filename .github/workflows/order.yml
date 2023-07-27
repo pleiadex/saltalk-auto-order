@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron:  '0 10 * * 1-5' # 10am weekdays. (UST) 3am weekdays PST Ref https://crontab.guru/examples.html
+    - cron: '0 10 * * 1-5' # 10am weekdays. (UST) 3am weekdays PST Ref https://crontab.guru/examples.html
   workflow_dispatch:
 
 name: Place an order
@@ -11,10 +11,10 @@ jobs:
     environment: SALTALK_AUTH
     steps:
       - name: Check out this repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v3  # Use a specific version instead of 'master'
 
       - name: Setting up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v4  # Use a specific version instead of 'v4'
         with:
           python-version: '3.9'
 
@@ -27,7 +27,6 @@ jobs:
       - name: Install Chromium browser, xvfb
         run: sudo apt-get install -y chromium-browser xvfb
 
-       # Need to fetch reqs if needed
       - name: Installing all necessary packages
         run: |
           pip install requests webdriver-manager
@@ -35,8 +34,8 @@ jobs:
 
       - name: Run the selenium script
         run: |
-              cd src
-              python main.py
+          cd src
+          python main.py
         env:
           SALTALK_ID: ${{ secrets.SALTALK_ID }}
           SALTALK_PASSWORD: ${{ secrets.SALTALK_PASSWORD }}

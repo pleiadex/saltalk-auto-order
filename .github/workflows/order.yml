@@ -1,6 +1,6 @@
 on:
-  schedule:
-    - cron: '0 10 * * 1-5' # 10am weekdays. (UST) 3am weekdays PST Ref https://crontab.guru/examples.html
+  #schedule:
+    #- cron: '0 10 * * 1-5' # 10am weekdays. (UST) 3am weekdays PST Ref https://crontab.guru/examples.html
   workflow_dispatch:
 
 name: Place an order
